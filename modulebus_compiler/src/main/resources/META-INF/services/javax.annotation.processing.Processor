@@ -1,0 +1,2 @@
+com.calvin.android.module.compiler.MyAnnotationProcessor
+com.calvin.android.module.compiler.ViewInjectProcessor

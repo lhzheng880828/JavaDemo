@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':module_annotation')
+
+
+    implementation 'com.squareup:javapoet:1.11.1'
+    annotationProcessor project(path: ':modulebus_compiler')
+
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"

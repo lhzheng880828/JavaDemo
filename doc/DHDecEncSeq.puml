@@ -1,0 +1,5 @@
+@startuml
+Alice -> Alice: 1.使用本地密钥对消息加密()
+Alice --> Bob: 2.发送加密消息()
+Bob -> Bob:3.使用本地密钥对消息解密()
+@enduml

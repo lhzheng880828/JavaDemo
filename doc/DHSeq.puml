@@ -1,0 +1,6 @@
+@startuml
+Alice -> Alice:1.构建Alice密钥()
+Alice -> Bob: 2.公布Alice密钥()
+Bob -> Bob: 3.使用Alice公钥构建Bob密钥()
+Bob --> Alice:4.公布Bob公钥()
+@enduml

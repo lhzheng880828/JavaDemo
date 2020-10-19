@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
         jcenter()
         
@@ -13,15 +14,24 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
+
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6'
     }
 }
 
 allprojects {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
         jcenter()
         
     }
+
+    /*gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs.add("-Djdk.crypto.KeyAgreement.legacyKDF=true")
+        }
+    }*/
 }
 
 task clean(type: Delete) {

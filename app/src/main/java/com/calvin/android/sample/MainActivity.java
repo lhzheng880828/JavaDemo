@@ -12,9 +12,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.calvin.android.aop.cache.CacheTest;
+import com.calvin.android.aop.repeat.RepeatTest;
+import com.calvin.android.aop.retry.RetryTest;
+import com.calvin.android.aop.sharepref.PrefTest;
 import com.calvin.android.module.annotation.InjectView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import cn.com.superLei.aoparms.annotation.Async;
+import cn.com.superLei.aoparms.annotation.Safe;
+import cn.com.superLei.aoparms.annotation.SingleClick;
+import cn.com.superLei.aoparms.annotation.TimeLog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.submit)
     Button submitBtn;
 
+    @TimeLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +64,65 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        aopTest();
+    }
+
+    private FloatingActionButton fab;
+
+    @TimeLog
+    private void aopTest(){
+        CacheTest cacheTest = new CacheTest();
+        cacheTest.mainCacheTest();
+
+        PrefTest prefTest = new PrefTest();
+        prefTest.prefMainTest();
+
+        //异步
+        asyn();
+        //trycatch
+        safe();
+        //retry
+        RetryTest retryTest = new RetryTest();
+        retryTest.retry();
+
+        RepeatTest repeatTest = new RepeatTest();
+        repeatTest.scheduled();
+
+
+        onclick();
+        fab.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onclick();
+            }
+        }, 500);
+    }
+
+    //value默认500ms
+    @SingleClick(value = 2000L)
+    private void onclick(){
+        Log.e(TAG, "onclick: >>>>");
+    }
+
+    //异步
+    @Async
+    @TimeLog
+    public void asyn() {
+        Log.e(TAG, "useAync: "+Thread.currentThread().getName());
+    }
+
+    //try-catch
+    //自动帮你try-catch   允许你定义回调方法
+    @Safe(callBack = "throwMethod")
+    public void safe() {
+        String str = null;
+        str.toString();
+    }
+
+    //自定义回调方法（注意要和callBack的值保持一致）
+    private void throwMethod(Throwable throwable){
+        Log.e(TAG, "throwMethod: >>>>>"+throwable.toString());
     }
 
     @Override

@@ -1,0 +1,5 @@
+@startuml
+Alice -> Alice: 1.使用Alice私钥、Bob公钥构建Alice本地密钥
+Bob --> Bob: 2.使用Bob私钥、Alice公钥构建Bob本地密钥
+@enduml
+

@@ -1,0 +1,8 @@
+@startuml
+Alice -> Alice: 1.构建密钥()
+Alice -> Bob: 2.公布密钥()
+
+Alice -> Alice: 3.使用密钥对数据加密()
+Alice -> Bob: 4.发送加密数据()
+Bob --> Bob : 5.使用密钥对数据解密()
+@enduml
